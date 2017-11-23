@@ -32,12 +32,13 @@ public class Java_jwt_2 {
     
     public static String generatedToken(){
         String jwt = "";
+        String KEY = "bm%^Y3UFKt2?@78w";
         try{
             Persona p = new Persona();
             p.setNombre("nombre");
             p.setDireccion("direccion");
-            p.setEmail("email");
-            p.setTelefono("telefono");
+//            p.setEmail("email");
+//            p.setTelefono("telefono");
             
             long tiempo = System.currentTimeMillis();
             jwt = Jwts.builder()
@@ -46,16 +47,16 @@ public class Java_jwt_2 {
             .setIssuedAt(new Date(tiempo))
             //***
             .setExpiration(new Date(tiempo+300000))
-            .claim("nombre", "Fidel José Villero de Hoyos")
-            .claim("identificacion", "1234567890")
+//            .claim("nombre", "Fidel José Villero de Hoyos")
+//            .claim("identificacion", "1234567890")
             .claim("persona", p)
             .signWith(
                 SignatureAlgorithm.HS256,
-                "17secret".getBytes("UTF-8")
+                KEY.getBytes("UTF-8")
             )
             .compact();
         }catch(Exception er){
-            
+            System.out.println("ERROR "+er.toString());
         }finally{
             System.out.println("Token generado:"+jwt);
             return jwt;
